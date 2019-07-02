@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Signup/Login</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="https://kit.fontawesome.com/941c31cd46.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/css2.css">
+	<script src="./ejs/ejs.js"></script>
+
+</head>
+<body id="login">
+	<header>
+		<h1 class="enter">Welcome to BookHut!</h1>
+	</header>
+	<div class="login-page">
+		<div class="form">
+			<form class="register-form" method="POST" action="/add" id="add">
+				<input type="text" placeholder="username" name="username"/>
+				<input type="password" placeholder="password" name="pwd"/>
+				<input type="email" placeholder="email" name="email"/>
+				<input type="text" placeholder="address" name="add"/>
+				<input type="number" placeholder="number" name="mobno"/>
+				<button type='submit'><b>Create</b></button>
+				<p class="message">Already Registered? <a href="#">Login</a></p>
+			</form>
+			<form class="login-form" method="POST" action="/add1">
+				<input type="email" placeholder="email" name="username"/>
+				<input type="text" placeholder="password" name="pwd"/>
+				<button> Login</button>
+				<p class="message">Not Registered?<a href="#">Register here</a>
+				</p>
+			</form>
+		</div>
+	</div>
+	<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+	<script>
+		$('.message a').click(function(){
+			$('form').animate({height:"toggle",opacity:"toggle"} ,"slow")
+		});
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</body>
+
+</html>

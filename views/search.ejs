@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Admin Login</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="https://kit.fontawesome.com/941c31cd46.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/css2.css">
+
+</head>
+<style type="text/css">
+
+    .cell {
+  display: table-cell;
+}
+td{
+  align:center;
+}
+</style>
+
+<body>
+    <header>
+    <h1 class="enter">Welcome to Admin Login Page</h1>
+  </header>
+
+<table class="table table-striped">
+  <tr>
+    <th>no</th>
+    <th>Name</th>
+    <th>publish</th>
+    <th>gners</th>
+    <th>author</th>
+    <th>image</th>
+    <th>cost</th>
+    <th>cart</th>
+    
+    
+  </tr>
+  <% for (var i = 0; i < obj.recordset.length; i++) { %>
+  <tr>
+    <td><%= i+1 %></td>
+<form class="form-inline" action="/act">
+    <div class="form-group">
+     <td> <input type="text" class="form-control" value="<%= obj.recordset[i].name%>" name="name" readonly></td>
+    </div>
+    <div class="form-group">
+      <td><input type="text" class="form-control"  value="<%= obj.recordset[i].publish %>" name="publish" readonly></td>
+    </div>
+     <div class="form-group">
+      <td><input type="text" class="form-control" value="<%= obj.recordset[i].genres%>" name="genres" readonly></td>
+    </div>
+    <div class="form-group">
+      <td><input type="text" class="form-control"  value="<%= obj.recordset[i].author %>" name="author" readonly></td>
+    </div>
+    <div class="form-group">
+      <td><input type="image"  src="<%= obj.recordset[i].image%>" width="300" height="100px"  name="image" style="align: center;" disabled></td>
+    </div>
+        <div class="form-group">
+      <td><input type="text" class="form-control"  value="1000" name="author" readonly></td>
+    </div>
+    <div class="form-group">
+    <td><button type="submit" class="btn btn-default">add to cart</button></td>
+  </div>
+  </form>
+  </tr> 
+<% } %>
+</table> 
+
+</body>
+</html>

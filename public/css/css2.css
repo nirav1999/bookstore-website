@@ -1,0 +1,78 @@
+body{
+	background-image: url(C:\Users\Suman\Desktop\bestproject\images\1_M8ROhy9igqxSnRbDf2Y5Qw.jpeg);
+	height:100vh;
+	background-size: cover;
+	background-position: center;
+}
+
+.login-page{
+	width:360px;
+	padding:10% 0 0;
+	margin:auto;
+	border:5px black;
+
+}
+
+.form{
+	position:relative;
+	z-index:1;
+	background:cornsilk;
+	max-width:360px;
+	margin:0 auto 100px;
+	padding:45px;
+	text-align:center;
+
+}
+
+.form input{
+	font-family:"Roboto",sans-serif;
+	outline:1;
+	width:100%;
+	background:white ;
+	margin:0 0 15px;
+	padding:15px;
+	box-sizing: border-box;
+	font-size:14px;
+}
+
+.form button{
+	font-family: "Roboto",sans-serif;
+	text-transform: uppercase;
+	outline:0;
+	background:aquamarine ;
+	width:100%;
+	border:0;
+	padding: 15px;
+	color:white;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.form button:hover,.form button:active{
+	background: aquamarine ;
+
+}
+
+.form .message{
+	margin:15px 0 0;
+	color:black;
+	font-size: 12px;
+	background: aquamarine;
+
+}
+
+.form .message a{
+	color:#4caf50;
+	text-decoration: none;
+	
+}
+
+.form .register-form{
+	display:none;
+
+}
+
+header{
+	background-image: linear-gradient(to bottom,#dd2476,#ff512f);
+	color:black;
+}
