@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,7 +23,8 @@
 		<div class="container-fluid p-0">
 			
 			<nav class="navbar navbar-expand-lg">
-			  <a class="navbar-brand" href="main.html">
+			  <a class="navbar-brand" href="main.html" >
+
 				<i class="fas fa-book-reader fa-3x mx-3"></i>
 				BookHut
 			  </a>
@@ -49,6 +51,12 @@
 			      </li>
 			      </li>
 			      <% if(disable){ %>
+			      	 <li class="nav-item">
+			        <button  formaction="\login" class ="btn btn-link white">userlogin</button>
+			      </li>
+			       <li class="nav-item">
+			        <button  formaction="\admin" class ="btn btn-link white">admin</button>
+			      </li>
 			      <li class="nav-item">
 			        <button  formaction="\cart" class ="btn btn-link white" <%= disable %>>cart</button>
 			      </li>

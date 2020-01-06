@@ -40,14 +40,14 @@ td{
     <th>author</th>
     <th>image</th>
     <th>cost</th>
-    <th>cart</th>
+    <th>     </th>
     
     
   </tr>
   <% for (var i = 0; i < obj.recordset.length; i++) { %>
   <tr>
     <td><%= i+1 %></td>
-<form class="form-inline" method="POST" action="/act">
+<form class="form-inline" method="POST" action="/removebook">
     <div class="form-group">
      <td> <input type="text" class="form-control" value="<%= obj.recordset[i].name%>" name="name" readonly></td>
     </div>
@@ -67,7 +67,7 @@ td{
       <td><input type="text" class="form-control"  value="1000" name="price" readonly></td>
     </div>
     <div class="form-group">
-    <td><button type="submit" class="btn btn-default" <%= disable %>>add to cart</button></td>
+    <td><button type="submit" class="btn btn-default" >remove</button></td>
   </div>
   </form>
   </tr> 

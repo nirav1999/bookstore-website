@@ -8,7 +8,8 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="./css/css2.css">
 	<script src="./ejs/ejs.js"></script>
-	<style type="text/css">		#bg {
+	<style>
+		#bg {
   position: fixed;
   left: 0;
   top: 0;
@@ -17,37 +18,51 @@
   background: url(/images/1.jpg) no-repeat center center fixed;
   background-size: cover;
   -webkit-filter: blur(5px);    
-}</style>
+}
+form {
+  position: relative;
+  width: 250px;
+  margin: 0 auto;
+  background: rgba(130,130,130,.3);
+  padding: 20px 22px;
+  border: 1px solid;
+  border-top-color: rgba(255,255,255,.4);
+  border-left-color: rgba(255,255,255,.4);
+  border-bottom-color: rgba(60,60,60,.4);
+  border-right-color: rgba(60,60,60,.4);
+}
+form input, form button {
+  width: 212px;
+  border: 1px solid;
+  border-bottom-color: rgba(255,255,255,.5);
+  border-right-color: rgba(60,60,60,.35);
+  border-top-color: rgba(60,60,60,.35);
+  border-left-color: rgba(80,80,80,.45);
+  background-color: rgba(0,0,0,.2);
+  background-repeat: no-repeat;
+  padding: 8px 24px 8px 10px;
+  font: bold .875em/1.25em "Open Sans Condensed", sans-serif;
+  letter-spacing: .075em;
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0,0,0,.1);
+  margin-bottom: 19px;
+}
+
+	</style>
 
 </head>
 <body id="login">
-	<header>
-		<h1 class="enter">Welcome to BookHut!</h1>
-	</header>
-		<div id="bg"></div>
+	<div id="bg"></div>
 	<div class="login-page">
-		<div class="form">
-			<form class="register-form" method="POST" action="/add" id="add">
-				<input type="text" placeholder="username" name="username"/>
-				<input type="password" placeholder="password" name="pwd"/>
-				<input type="email" placeholder="email" name="email"/>
-				<input type="text" placeholder="address" name="add"/>
-				<input type="number" placeholder="number" name="mobno"/>
-				<button type='submit'><b>Create</b></button>
-				<p class="message">Already Registered? <a href="#">Login</a></p>
-			</form>
-			<form class="login-form" method="POST" action="/add1">
-							<% if (message) { %>
-<p><%= message %></p>
-<% } %>
-				<input type="email" placeholder="email" name="username"/>
-				<input type="text" placeholder="password" name="pwd"/>
-				<button> Login</button>
-				<p class="message">Not Registered?<a href="#">Register here</a>
-				</p>
+			<form  method="POST" action="/book">
+			<div class="form-group"><input type="text" placeholder="username" name="name" /></div>
+				<div class="form-group"><input type="text" placeholder="publish" name="publish"  /></div>
+				<div class="form-group"><input type="text" placeholder="genres" name="genres"/></div>
+				<div class="form-group"><input type="text" placeholder="author" name="author"/></div>
+				<div class="form-group"><input type="text" plaeholder="img link" name="image"/></div>
+				<div class="form-group"><button type='submit' formaction="/addbook" class="btn btn-danger btn-fill"><b>submit</b></button></div><div class="form-group">
 			</form>
 		</div>
-	</div>
 	<script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
 	<script>
 		$('.message a').click(function(){

@@ -21,24 +21,16 @@ td{
 
 <body>
     <header>
-    <h1 class="enter">book</h1>
+    <h1 class="enter">bill</h1>
   </header>
-      <div class="d-flex justify-content-center">
-        <div class="searchbar">
-        <form method="POST" action="/search"><input class="search_input" type="text" name="name" placeholder="Search...">
-          <button type="submit"><i class="fas fa-search"></i></button></form>
-        </div>
-      </div>
-
 
 <table class="table table-striped">
   <tr>
     <th>no</th>
     <th>Name</th>
-    <th>publish</th>
-    <th>gners</th>
-    <th>author</th>
-    <th>image</th>
+    <th>book</th>
+    <th>price</th>
+    <th>quantity</th>
     <th>cost</th>
     <th>cart</th>
     
@@ -52,27 +44,27 @@ td{
      <td> <input type="text" class="form-control" value="<%= obj.recordset[i].name%>" name="name" readonly></td>
     </div>
     <div class="form-group">
-      <td><input type="text" class="form-control"  value="<%= obj.recordset[i].publish %>" name="publish" readonly></td>
+      <td><input type="image"  src="<%= obj.recordset[i].book%>" width="300" height="100px"  name="image" style="align: center;" disabled></td>
     </div>
      <div class="form-group">
-      <td><input type="text" class="form-control" value="<%= obj.recordset[i].genres%>" name="genres" readonly></td>
+      <td><input type="text" class="form-control" value="<%= obj.recordset[i].price%>" name="genres" readonly></td>
     </div>
     <div class="form-group">
-      <td><input type="text" class="form-control"  value="<%= obj.recordset[i].author %>" name="author" readonly></td>
-    </div>
-    <div class="form-group">
-      <td><input type="image"  src="<%= obj.recordset[i].image%>" width="300" height="100px"  name="image" style="align: center;" disabled></td>
+      <td><input type="text" class="form-control"  value="<%= obj.recordset[i].quantity %>" name="author" readonly></td>
     </div>
         <div class="form-group">
-      <td><input type="text" class="form-control"  value="1000" name="price" readonly></td>
+      <td><input type="text" class="form-control"  value="<%= obj.recordset[i].total %>" readonly></td>
     </div>
     <div class="form-group">
-    <td><button type="submit" class="btn btn-default" <%= disable %>>add to cart</button></td>
+    <td><button type="submit" class="btn btn-default">add to cart</button><button type="submit" formaction="/remove" class="btn btn-default">remove</button></td>
   </div>
-  </form>
-  </tr> 
+</form>
+</tr> 
 <% } %>
-</table> 
-
+</table>
+<form class="form" method="POST" action="/purchase"> 
+<button type="submit" class="btn btn-default">total:<%= message1 %></button>
+</form>
+paying method is only cod
 </body>
 </html>

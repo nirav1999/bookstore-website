@@ -39,8 +39,8 @@ app.get('/', function (req, res) {
         // create Request objec
                     sql.close();
         });
-
-    res.render('loginsignup', {message: req.flash('welcome') });
+    res.clearCookie('value'); 
+    res.render('main1', {message: 'welcome',disable : 'disabled'});
 
     });
 

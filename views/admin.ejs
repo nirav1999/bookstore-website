@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,7 +23,8 @@
 		<div class="container-fluid p-0">
 			
 			<nav class="navbar navbar-expand-lg">
-			  <a class="navbar-brand" href="main.html">
+			  <a class="navbar-brand" href="main.html" >
+
 				<i class="fas fa-book-reader fa-3x mx-3"></i>
 				BookHut
 			  </a>
@@ -34,7 +36,7 @@
 			    <ul class="navbar-nav">
 			    	<form method="POST" class="form-inline">
 			      <li class="nav-item">
-			        <button  formaction="\add2" class ="btn btn-link white">books</button>
+			        <button  formaction="\add3" class ="btn btn-link white">books</button>
 			      </li>
 			      <li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,10 +52,7 @@
 			      </li>
 			      <% if(disable){ %>
 			      <li class="nav-item">
-			        <button  formaction="\cart" class ="btn btn-link white" <%= disable %>>cart</button>
-			      </li>
-			       <li class="nav-item">
-			        <button  formaction="\profile" class ="btn btn-link white" <%= disable %>>profile</button>
+			        <button  formaction="\book" class ="btn btn-link white"  <%= disable %>>add book</button>
 			      </li>
 			      	 <li class="nav-item">
 			        <button  formaction="\logout" class ="btn btn-link white" <%= disable %>>logout</button>
