@@ -1,8 +1,8 @@
 const db =
     {
-        "user": "sa",
-        "password": "sa1234",
-        "server": "DESKTOP-74P86C8",
+        "host" : "localhost",
+        "user": "root",
+        "server":"localhost:3306",
         "database": "bestproject"
     };
 

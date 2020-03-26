@@ -17,18 +17,26 @@
 td{
   align:center;
 }
+.backg{
+    background: url(/images/1.jpg) no-repeat center center fixed;
+}
+table{
+	margin-top: 50px;
+	  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.2); 
+  text-align: center;
+}
 </style>
 
-<body>
+<body class="backg">
     <header>
     <h1 class="enter">bill</h1>
   </header>
 
-<table class="table table-striped">
+<table class="table table-striped" style="color:white;">
   <tr>
     <th>no</th>
     <th>Name</th>
-    <th>book</th>
     <th>price</th>
     <th>quantity</th>
     <th>cost</th>
@@ -36,33 +44,32 @@ td{
     
     
   </tr>
-  <% for (var i = 0; i < obj.recordset.length; i++) { %>
+  <% for (var i = 0; i < obj.length; i++) { %>
   <tr>
     <td><%= i+1 %></td>
 <form class="form-inline" method="POST" action="/act">
     <div class="form-group">
-     <td> <input type="text" class="form-control" value="<%= obj.recordset[i].name%>" name="name" readonly></td>
-    </div>
-    <div class="form-group">
-      <td><input type="image"  src="<%= obj.recordset[i].book%>" width="300" height="100px"  name="image" style="align: center;" disabled></td>
+     <td> <input type="text" class="form-control" value="<%= obj[i].name%>" name="name" readonly></td>
     </div>
      <div class="form-group">
-      <td><input type="text" class="form-control" value="<%= obj.recordset[i].price%>" name="genres" readonly></td>
+      <td><input type="text" class="form-control" value="<%= obj[i].price%>" name="genres" readonly></td>
     </div>
     <div class="form-group">
-      <td><input type="text" class="form-control"  value="<%= obj.recordset[i].quantity %>" name="author" readonly></td>
+      <td><input type="text" class="form-control"  value="<%= obj[i].quantity %>" name="author" readonly></td>
     </div>
         <div class="form-group">
-      <td><input type="text" class="form-control"  value="<%= obj.recordset[i].total %>" readonly></td>
+      <td><input type="text" class="form-control"  value="<%= obj[i].total %>" readonly></td>
     </div>
     <div class="form-group">
-    <td><button type="submit" class="btn btn-default">add to cart</button><button type="submit" formaction="/remove" class="btn btn-default">remove</button></td>
+    <td><button type="submit" class="btn btn-default">add to cart</button>
+      <button type="submit" formaction="/remove" class="btn btn-default">remove</button></td>
   </div>
 </form>
 </tr> 
 <% } %>
 </table>
-<form class="form" method="POST" action="/purchase"> 
+<form class="form" method="POST" action="/purchase">
+ 
 <button type="submit" class="btn btn-default">total:<%= message1 %></button>
 </form>
 paying method is only cod

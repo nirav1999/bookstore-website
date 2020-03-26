@@ -55,10 +55,10 @@ form input, form button {
 	<div id="bg"></div>
 	<div class="login-page">
 			<form  method="POST" action="/profile">
-			<div class="form-group"><input type="text" placeholder="username" name="username" value="<%= obj.recordset[0].name%>"/></div>
-				<div class="form-group"><input type="email" placeholder="email" name="email" value="<%= obj.recordset[0].email%>" readonly/></div>
-				<div class="form-group"><input type="text" placeholder="address" name="add" value="<%= obj.recordset[0].address%>"/></div>
-				<div class="form-group"><input type="number" placeholder="number" name="mobno" value="<%= obj.recordset[0].mobno%>"/></div>
+			<div class="form-group"><input type="text" placeholder="username" name="username" value="<%= obj[0].name%>"/></div>
+				<div class="form-group"><input type="email" placeholder="email" name="email" value="<%= obj[0].email%>" readonly/></div>
+				<div class="form-group"><input type="text" placeholder="address" name="add" value="<%= obj[0].address%>"/></div>
+				<div class="form-group"><input type="number" placeholder="number" name="mobno" value="<%= obj[0].mobno%>"/></div>
 				<div class="form-group"><button type='submit' formaction="/profile1" class="btn btn-danger btn-fill"><b>submit</b></button></div><div class="form-group">
 					<button formaction="/logout"class="btn btn-danger btn-fill">Logout</button></div>
 				<div class="form-group"><button formaction="/delete" class="btn btn-danger btn-fill">delete</button></div>

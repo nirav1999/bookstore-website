@@ -3,7 +3,7 @@ var path = require("path");
 const bodyParser = require("body-parser");
 var index = require('./routes/index');
 var users = require('./routes/users');
-var sql = require("mssql");
+var sql = require("mysql");
 var app = express();
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname,"public")));
@@ -22,22 +22,23 @@ app.use("/",function(req,res,next){
 	next();
 });
 
+var con = sql.createConnection({
+  "host" : "localhost",
+  "user": "root",
+  "server":"localhost:3306",
+  "database": "bestproject"
+});
+
 
 app.get('/', function (req, res) {
-   
-    var sql = require("mssql");
+     
+      req.flash("welcome", "welcome");
 
-    // config for your database
-    var config = require('./config/db')
-      req.flash("welcome", "welocme");
-
+      
     // connect to your database
-    sql.connect(config, function (err) {
-    
+    con.connect( function (err) {
         if (err) console.log(err);
 
-        // create Request objec
-                    sql.close();
         });
     res.clearCookie('value'); 
     res.render('main1', {message: 'welcome',disable : 'disabled'});
@@ -46,6 +47,6 @@ app.get('/', function (req, res) {
 
 
 
-var server = app.listen(5000, function () {
+var server = app.listen(8010, function () {
     console.log('Server is running..');
 });

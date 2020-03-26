@@ -17,12 +17,25 @@
 td{
   align:center;
 }
+.backg{
+    background: url(/images/1.jpg) no-repeat center center fixed;
+}
+table{
+	margin-top: 50px;
+	  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.2); 
+  text-align: center;
+}
 </style>
 
-<body>
-    <header>
-    <h1 class="enter">book</h1>
-  </header>
+<body class="backg">
+  <header>
+  <form method="POST" action="/home"><button class ="btn btn-link white">
+
+    <i class="fas fa-book-reader fa-3x mx-3"></i>
+    BookHut
+    </button></form>
+</header>
       <div class="d-flex justify-content-center">
         <div class="searchbar">
         <form method="POST" action="/search"><input class="search_input" type="text" name="name" placeholder="Search...">
@@ -31,7 +44,7 @@ td{
       </div>
 
 
-<table class="table table-striped">
+<table class="table table-striped" style="color:white;">
   <tr>
     <th>no</th>
     <th>Name</th>
@@ -44,24 +57,24 @@ td{
     
     
   </tr>
-  <% for (var i = 0; i < obj.recordset.length; i++) { %>
+  <% for (var i = 0; i < obj.length; i++) { %>
   <tr>
     <td><%= i+1 %></td>
 <form class="form-inline" method="POST" action="/removebook">
     <div class="form-group">
-     <td> <input type="text" class="form-control" value="<%= obj.recordset[i].name%>" name="name" readonly></td>
+     <td> <input type="text" class="form-control" value="<%= obj[i].name%>" name="name" readonly></td>
     </div>
     <div class="form-group">
-      <td><input type="text" class="form-control"  value="<%= obj.recordset[i].publish %>" name="publish" readonly></td>
+      <td><input type="text" class="form-control"  value="<%= obj[i].publish %>" name="publish" readonly></td>
     </div>
      <div class="form-group">
-      <td><input type="text" class="form-control" value="<%= obj.recordset[i].genres%>" name="genres" readonly></td>
+      <td><input type="text" class="form-control" value="<%= obj[i].genres%>" name="genres" readonly></td>
     </div>
     <div class="form-group">
-      <td><input type="text" class="form-control"  value="<%= obj.recordset[i].author %>" name="author" readonly></td>
+      <td><input type="text" class="form-control"  value="<%= obj[i].author %>" name="author" readonly></td>
     </div>
     <div class="form-group">
-      <td><input type="image"  src="<%= obj.recordset[i].image%>" width="300" height="100px"  name="image" style="align: center;" disabled></td>
+      <td><input type="image"  src="<%= obj[i].image%>" width="300" height="100px"  name="image" style="align: center;" disabled></td>
     </div>
         <div class="form-group">
       <td><input type="text" class="form-control"  value="1000" name="price" readonly></td>
@@ -73,6 +86,5 @@ td{
   </tr> 
 <% } %>
 </table> 
-
 </body>
 </html>
