@@ -29,7 +29,7 @@ var result;
 //----------------------------------
 //---------------------------------
 router.post('/add', function (req, res) {  
-      req.flash("welcome", "welocme");
+      req.flash("welcome", "welcome");
     // connect to your database
     con.connect( function (err) {
         if (err) console.log(err);
@@ -38,7 +38,7 @@ router.post('/add', function (req, res) {
         const username = req.body.username;
         const pwd =req.body.pwd;
 
-        req.flash("success", "successfuly Signed up");
+        req.flash("success", "successfulLy Signed up");
         req.flash("incorrect", "incorrect");
 
         con.query("select * from userb where email='"+email+"'", function (error,results) {
@@ -227,8 +227,8 @@ router.post('/add3', function (req, res) {
         return res.render('search1', { obj : rows,disable:' '});  
 
   });
-    });
-      });
+  });
+  });
 
 router.post('/logout',function(req,res){
 
@@ -260,8 +260,8 @@ router.post('/delete', function (req, res, next) {
 
         });
       });
-  });
-   });
+});
+});
 
 //-----------------------------------------------------
 //-----------------------------------------------------
@@ -352,7 +352,7 @@ router.post('/login',function(req,res){
 //-----------------------------------------
 //-----------------------------------------
 router.post('/search', function (req, res) {
-   req.flash("welcome", "welocme");
+   req.flash("welcome", "welcome");
 
       
     // connect to your database

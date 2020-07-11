@@ -41,12 +41,12 @@ app.get('/', function (req, res) {
 
         });
     res.clearCookie('value'); 
-    res.render('main1', {message: 'welcome',disable : 'disabled'});
+    res.render('main1', {message: 'welcome',disable : 'hidden'});
 
     });
 
 
 
 var server = app.listen(8010, function () {
-    console.log('Server is running..');
+    console.log('Server is running.. at 8010');
 });
