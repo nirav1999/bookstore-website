@@ -17,7 +17,7 @@ router.use(cookieParser());
 var con = sql.createConnection({
   "host" : "localhost",
   "user": "root",
-  "server":"localhost:3306",
+  "server":"localhost:8000" ,
   "database": "bestproject"
 });
 
@@ -63,13 +63,13 @@ router.post('/add', function (req, res) {
                     con.query("CREATE TABLE `"+rows1[0].userid+"` (`name` varchar(50) DEFAULT NULL, `price` int(6) DEFAULT NULL,`quantity` int(11) DEFAULT NULL,`total` int(11) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;", function (error,rows) {
                     if (error) throw error;
                   
-                    return res.render('main', {message: req.flash('success') ,disable:" "});            
+                    return res.render('main1', {message: 'success' ,disable:" "});            
                     })
                 });
           }   
           else
           {     
-              return res.render('loginsignup', {message: req.flash('incorrect') });
+              return res.render('main1', {message: 'welcome' });
           }
 
       })
@@ -103,7 +103,7 @@ router.post('/add1', function (req, res) {
 
               console.log(req.cookies.value);
       
-     return res.render('main', {message: req.flash('success'),disable:" " });
+     return res.render('main1', {message: "User" });
    });
            
     }
@@ -113,7 +113,7 @@ router.post('/add1', function (req, res) {
 
         
        
- return res.render('loginsignup', {message: 'incorrect' });
+ return res.render('main1', {message: 'welcome' });
     }
   });
     });
@@ -130,13 +130,14 @@ router.post('/act', function (req, res) {
       if (err) console.log(err);
        
       const name = req.body.name;
+      console.log(name);
       con.query("select * from book where name='"+name+"'", function (error,rows2) {
             if (error) throw error;
 
             console.log(name); 
             if(!rows2.length)
             {
-                return res.render('search', {message: "problem" });
+                return res.render('main1', {message: "User" });
             }
             else
             {
@@ -193,9 +194,9 @@ router.post('/add2', function (req, res) {
       console.log(rows);
         
         if(typeof(req.cookies.value) == "undefined")
-        return res.render('search', { obj : rows,disable:'disabled'});
+        return res.render('search', { obj : rows,message:"no"});
         else
-        return res.render('search', { obj : rows,disable:' '});  
+        return res.render('search', { obj : rows,message:"yes"});  
 
   });
     });
@@ -224,7 +225,7 @@ router.post('/add3', function (req, res) {
      con.query("select * from book", function (error,rows) {
       if (error) throw error; 
         
-        return res.render('search1', { obj : rows,disable:' '});  
+        return res.render('search1', { obj : rows,message:'yes'});  
 
   });
   });
@@ -233,7 +234,7 @@ router.post('/add3', function (req, res) {
 router.post('/logout',function(req,res){
 
     res.clearCookie('value'); 
-    return res.render('main1',{message:'logout',disable:"disabled "});
+    return res.render('main1',{message:'welcome',disable:"disabled "});
 
 });
 
@@ -256,7 +257,7 @@ router.post('/delete', function (req, res, next) {
        con.query("drop table `"+req.cookies.value+"`",function(err){
                     
             res.clearCookie('value'); 
-            return res.render('loginsignup',{message:'account deleted'});
+            return res.render('main1',{message:'welcome'});
 
         });
       });
@@ -298,7 +299,7 @@ router.post('/profile1',function(req,res,next){
            con.query("select *  from userb where userid ="+req.cookies.value+"", function (error,rows3) {
       if (error) throw error;        
             
-     return res.render('profile', {obj: rows3});
+     return res.render('main1', {message: 'User'});
       });
 
 
@@ -332,7 +333,7 @@ router.post('/cart',function(req,res,next){
 router.post('/home',function(req,res){
 
   if(typeof(req.cookies.value) != "undefined")
-  return res.render('main',{message: " ",disable:" "});
+  return res.render('main1',{message: "welcome",disable:" "});
   else{  return res.render('main1',{message:'logout',disable:"disabled "});
 }
 
@@ -368,9 +369,9 @@ router.post('/search', function (req, res) {
       console.log("hello"+name+"hello"); 
         
         if(typeof(req.cookies.value) == "undefined")
-        return res.render('search', { obj : rows,disable:'disabled'});
+        return res.render('search', { obj : rows,message:'no'});
         else
-        return res.render('search', { obj : rows,disable:' '});  
+        return res.render('search', { obj : rows,message:'yes'});  
 });
 });
  });
@@ -390,7 +391,7 @@ router.post('/remove', function (req, res, next) {
         if (err) {
           console.log(err);
         }
-      con.query("UPDATE `"+req.cookies.value+"` SET quantity = quantity-1,total = price*(quantity-1) where name='"+req.body.name+"'", function (error,rows4) {
+      con.query("UPDATE `"+req.cookies.value+"` SET total = price*(quantity-1),quantity = quantity-1 where name='"+req.body.name+"'", function (error,rows4) {
       if (error) throw error;
       });
 
@@ -416,19 +417,20 @@ router.post('/admin',function(req,res,next){
     // connect to your database
     const username = req.body.username;
     const pwd =req.body.pwd;
+    console.log(username);
 
           con.query("select * from admin where name='"+username+"' and password ='"+pwd+"'", function (error,rows) {
-      if (error) throw error;
+      if (error) console.log(error);
       req.flash("success", "successfuly Signed up");
       req.flash("incorrect", "incorrect");
        console.log(username); 
       if(rows.length)
       {
-     return res.render('admin', {message: req.flash('success'),disable:" " });      
+     return res.render('main1', {message: 'success',disable:"visible" });      
     }
           else
     {    
-          return res.render('admin1', {message: req.flash('success') });
+          return res.render('main1', {message: 'welcome',disable:"hidden" });
     }
   });
   });
@@ -447,7 +449,7 @@ router.post('/removebook', function (req, res, next) {
   
      con.query("delete from book where name='"+req.body.name+"'", function (err, result) {   
             
-     return res.render('admin', {message: "successfuly remove",disable: " " });
+     return res.render('main1', {message: "success",disable: " " });
       });
       });
         });
@@ -468,7 +470,7 @@ router.post('/book',function(req,res){
 router.post('/addbook', function (req, res) {
     
   
-      req.flash("welcome", "welocme");
+      req.flash("welcome", "welcome");
 
       
     // connect to your database
@@ -491,7 +493,7 @@ router.post('/addbook', function (req, res) {
       if(rows2.length)
       {
       
-     return res.render('search1', {message: "book already there",obj : rows });
+     return res.render('search1', {message: "yes",obj : rows });
            
     }
       else
@@ -500,7 +502,7 @@ router.post('/addbook', function (req, res) {
       if (error) throw error;
       con.query("select * from book", function (error,rows4) {
         if (error) throw error;
-     return res.render('search1', {message: "add" , obj: rows4});
+     return res.render('search1', {message: "yes" , obj: rows4});
       });
     });
     }
