@@ -17,33 +17,65 @@
 td{
   align:center;
 }
-.backg{
-    background: url(/images/1.jpg) no-repeat center center fixed;
+.table{
+  margin:auto;
+  width: 50% !important;
 }
-table{
-	margin-top: 50px;
-	  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.2); 
-  text-align: center;
+.backg{
+    background: url(/images/slide2.jpg);
+    background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+}
+tr{
+  background: white;
+  color: black;
+}
+
+.pur{
+        border: 6px solid #7e7271; 
+        width: 200px;
+        text-align: center;
+        background: #fff;
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%,-50%)
 }
 </style>
 
 <body class="backg">
     <header>
-    <h1 class="enter">bill</h1>
+    <div class="container-fluid p-0">
+      <nav class="navbar navbar-dark bg-dark navbar-expand-sm ">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <a style="color: white;" class="navbar-brand p-0" >
+        <i class="fas fa-book-reader fa" ></i>
+        BookHut
+        </a>
+      </div>
+    </nav>
+  </div>
   </header>
 
-<table class="table table-striped" style="color:white;">
+<table class="table table-responsive" style="color:white;">
   <tr>
+    <thead class="thead-dark">
     <th>no</th>
     <th>Name</th>
     <th>price</th>
     <th>quantity</th>
     <th>cost</th>
     <th>cart</th>
-    
+    <th>Action</th>
+    </thead>
     
   </tr>
+  <% if(obj){ %>
+
+  
   <% for (var i = 0; i < obj.length; i++) { %>
   <tr>
     <td><%= i+1 %></td>
@@ -52,26 +84,32 @@ table{
      <td> <input type="text" class="form-control" value="<%= obj[i].name%>" name="name" readonly></td>
     </div>
      <div class="form-group">
-      <td><input type="text" class="form-control" value="<%= obj[i].price%>" name="genres" readonly></td>
+      <td><%= obj[i].price%></td>
     </div>
     <div class="form-group">
-      <td><input type="text" class="form-control"  value="<%= obj[i].quantity %>" name="author" readonly></td>
+      <td><%= obj[i].quantity %></td>
     </div>
         <div class="form-group">
-      <td><input type="text" class="form-control"  value="<%= obj[i].total %>" readonly></td>
+      <td><%= obj[i].total %></td>
     </div>
     <div class="form-group">
-    <td><button type="submit" class="btn btn-default">add to cart</button>
+    <td><button type="submit" class="btn btn-default">Add</button>
+    </td>
+  </div>
+  <div class="form-group">
+    <td>
       <button type="submit" formaction="/remove" class="btn btn-default">remove</button></td>
   </div>
 </form>
 </tr> 
-<% } %>
+<% } } %>
 </table>
-<form class="form" method="POST" action="/purchase">
- 
+
+<div class="pur">
+<form  method="POST" action="/purchase">
 <button type="submit" class="btn btn-default">total:<%= message1 %></button>
 </form>
 paying method is only cod
+</div>
 </body>
 </html>
