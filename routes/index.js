@@ -60,20 +60,19 @@ router.post('/add', function (req, res) {
                     res.cookie("value",rows1[0].userid);
 
                     console.log(req.cookies);
-                    con.query("CREATE TABLE `"+rows1[0].userid+"` (`name` varchar(50) DEFAULT NULL, `price` int(6) DEFAULT NULL,`quantity` int(11) DEFAULT NULL,`total` int(11) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;", function (error,rows) {
-                    if (error) throw error;
+                    
                   
-                    return res.render('main1', {message: 'success' ,disable:" ", error:""});            
-                    })
-                });
+                    return res.render('main1', {message: 'welcome' ,disable:" ", error:""});            
+                   
+          });
           }   
           else
           {     
               return res.render('main1', {message: 'welcome' , error:"incorrect register"});
           }
 
-      })
     });       // send records as a response
+  });
   });
 
 //-----------------------------------------------------------------------------
@@ -132,32 +131,32 @@ router.post('/act', function (req, res) {
       con.query("select * from book where name='"+name+"'", function (error,rows2) {
             if (error) throw error;
 
-            console.log(name); 
+            console.log(rows2); 
             if(!rows2.length)
             {
                 return res.render('main1', {message: "User", error: "cannot find book "+ name });
             }
             else
             {
-                con.query("select *  from `"+req.cookies.value+"` where name='"+name+"'", function (error,rows4) {
+                con.query("select *  from cart where c_id="+req.cookies.value+" and b_id="+rows2[0].b_id+"", function (error,rows4) {
                       if (error) throw error;
                       console.log(rows4.length);
                       if(rows4.length)
                       {
-                          con.query("UPDATE `"+req.cookies.value+"` SET total=price*(quantity+1),quantity = quantity+1 where name='"+name+"'", function (error,rows4) {
+                          con.query("UPDATE cart SET quantity = quantity+1, total="+rows2[0].price+"*quantity where c_id="+req.cookies.value+" and b_id="+rows2[0].b_id+"" , function (error,rows4) {
                                 if (error) throw error;
                           });
                       } 
                       else
                       {   
                         console.log(req.body.image);  
-                        con.query("INSERT INTO `"+req.cookies.value+"` values('"+req.body.name+"',"+req.body.price+",1,"+req.body.price+")", function (error,rows) {
+                        con.query("INSERT INTO  cart values("+req.cookies.value+","+rows2[0].b_id+",1,"+rows2[0].price+")", function (error,rows) {
                               if (error) throw error;
                         });
                       }
-                con.query("select sum(total) as s1 from `"+req.cookies.value+"`", function (error,rows1) {
+                con.query("select sum(total) as s1 from cart where c_id="+req.cookies.value+"", function (error,rows1) {
                     if (error) throw error;
-                    con.query("select *  from `"+req.cookies.value+"`", function (error,rows3) {
+                    con.query("SELECT book.name,book.price,cart.quantity,cart.total as total FROM `cart`,`book` where c_id="+req.cookies.value+" and cart.b_id=book.b_id ", function (error,rows3) {
                           if (error) throw error;
                           console.log(rows3);             
                           return res.render('bill', {message1: rows1[0].s1,obj: rows3});
@@ -174,12 +173,9 @@ router.post('/act', function (req, res) {
 //---------------------------------------------------
 //---------------------------------------------------
 router.post('/add2', function (req, res) { 
-    // connect to your database
     con.connect({json: true }, function (err) {
     
         if (err) console.log(err);
-
-        // create Request object
 
            
     const username = req.body.username;
@@ -196,9 +192,9 @@ router.post('/add2', function (req, res) {
         else
         return res.render('search', { obj : rows,message:"yes"});  
 
-  });
-    });
-    });
+});
+});
+});
 
 //--------------------------------------------------
 //--------------------------------------------------
@@ -206,24 +202,21 @@ router.post('/add2', function (req, res) {
 router.post('/add3', function (req, res) {
    
   
-      req.flash("welcome", "welcome");
+        req.flash("welcome", "welcome");
 
       
-    // connect to your database
-    con.connect( function (err) {
+    
+        con.connect( function (err) {
     
         if (err) console.log(err);
 
-        // create Request object
+          const username = req.body.username;
+          const pwd =req.body.pwd;
 
-           
-    const username = req.body.username;
-    const pwd =req.body.pwd;
-
-     con.query("select * from book", function (error,rows) {
-      if (error) throw error; 
-        
-        return res.render('search1', { obj : rows,message:'yes'});  
+           con.query("select * from book", function (error,rows) {
+            if (error) throw error; 
+              
+              return res.render('search1', { obj : rows,message:'yes'});  
 
   });
   });
@@ -314,9 +307,9 @@ router.post('/cart',function(req,res,next){
       console.log(err);
 
 
-     con.query("select sum(total) as s1 from `"+req.cookies.value+"`", function (error,rows1) {
+     con.query("select (sum(quantity)*1000) as s1 from cart where c_id="+req.cookies.value+"", function (error,rows1) {
       if (error) throw error;
-     con.query("select *  from `"+req.cookies.value+"`", function (error,rows3) {
+     con.query("SELECT book.name,book.price,cart.quantity,cart.total as total FROM `cart`,`book` where c_id="+req.cookies.value+" and cart.b_id=book.b_id ", function (error,rows3) { 
       if (error) throw error;        
             
      return res.render('bill', {message1: rows1[0].s1,obj: rows3});
@@ -331,13 +324,16 @@ router.post('/cart',function(req,res,next){
 router.post('/home',function(req,res){
 
   if(typeof(req.cookies.value) != "undefined")
-  return res.render('main1',{message: "welcome",disable:" ", error: ""});
-  else{  return res.render('main1',{message:'logout',disable:"disabled ", error: ""});
+  return res.render('main1',{message: "User",disable:" ", error: ""});
+  else{  return res.render('main1',{message:'welcome',disable:"disabled ", error: ""});
 }
-
-
-
 });
+
+router.post('/admhome',function(req,res){
+
+  return res.render('main1',{message: "success",disable:" ", error: ""});
+}
+);
 
 //-----------------------------------------
 //----------------------------------------
@@ -381,29 +377,40 @@ router.post('/remove', function (req, res, next) {
     con.connect( function (err) {
     if (err)
       console.log(err);
+    const name = req.body.name;
+      console.log(name);
 
+    con.query("select * from book where name='"+name+"'", function (error,rows2) {
+            if (error) throw error;
 
-  
-     con.query("delete from `"+req.cookies.value+"` where name='"+req.body.name+"' and quantity=1", function (err, result) {
+            console.log(rows2); 
+            if(!rows2.length)
+            {
+                return res.render('main1', {message: "User", error: "cannot find book "+ name });
+            }
+            else
+            {
+              con.query("delete from  cart where c_id="+req.cookies.value+" and b_id="+rows2[0].b_id+" and quantity=1", function (err, result) {
+              if (err) {
+                  console.log(err);
+              }
+                con.query("UPDATE cart SET quantity = quantity-1, total="+rows2[0].price+"*quantity where c_id="+req.cookies.value+" and b_id="+rows2[0].b_id+"", function (error,rows4) {
+                if (error) throw error;
+                });
 
-        if (err) {
-          console.log(err);
-        }
-      con.query("UPDATE `"+req.cookies.value+"` SET total = price*(quantity-1),quantity = quantity-1 where name='"+req.body.name+"'", function (error,rows4) {
-      if (error) throw error;
-      });
-
-       con.query("select sum(total) as s1 from `"+req.cookies.value+"`", function (error,rows1) {
-      if (error) throw error;
-     con.query("select *  from `"+req.cookies.value+"`", function (error,rows3) {
-      if (error) throw error;        
-            
-     return res.render('bill', {message1: rows1[0].s1,obj: rows3});
-      });
-      });
-  });
+                 con.query("select sum(total) as s1 from cart where c_id="+req.cookies.value+"", function (error,rows1) {
+                if (error) throw error;
+               con.query("SELECT book.name,book.price,cart.quantity,cart.total as total FROM `cart`,`book` where c_id="+req.cookies.value+" and cart.b_id=book.b_id ", function (error,rows3) {
+                if (error) throw error;        
+                      
+               return res.render('bill', {message1: rows1[0].s1,obj: rows3});
+                });
+                });
+            });
+            }     
 });
  });
+  });
 
 module.exports = router;
 //-----------------------------------------------------
@@ -443,14 +450,27 @@ router.post('/removebook', function (req, res, next) {
     if (err)
       console.log(err);
 
-    
-  
-     con.query("delete from book where name='"+req.body.name+"'", function (err, result) {   
-            
-     return res.render('main1', {message: "success",disable: " " , error: "book removed: "+req.body.name});
-      });
+    con.query("select * from book where name='"+req.body.name+"'", function (error,rows2) {
+            if (error) throw error;
+
+            console.log(rows2); 
+            if(!rows2.length)
+            {
+                return res.render('main1', {message: "User", error: "cannot find book "+ name });
+            }
+            else
+            {
+                con.query("delete from book where name='"+req.body.name+"'", function (err, result) {
+
+                con.query("delete from cart where b_id='"+rows2[0].b_id+"'", function (err, result1) {   
+      
+                return res.render('main1', {message: "success",disable: " " , error: "book removed: "+req.body.name});
+              });
+            });
+            }     
       });
         });
+  });
 
  //=------------------------------------------
  //------------------------------------------
@@ -496,7 +516,7 @@ router.post('/addbook', function (req, res) {
     }
       else
     {
-     con.query("INSERT INTO book values('"+req.body.name+"','"+req.body.publish+"','"+req.body.genres+"','"+req.body.author+"','"+req.body.image+"')", function (error,rows1) {
+     con.query("INSERT INTO `book`(`name`, `publish`, `genres`, `author`, `price`) values('"+req.body.name+"','"+req.body.publish+"','"+req.body.genres+"','"+req.body.author+"',"+req.body.price+")", function (error,rows1) {
       if (error) throw error;
       con.query("select * from book", function (error,rows4) {
         if (error) throw error;
