@@ -63,13 +63,13 @@ router.post('/add', function (req, res) {
                     con.query("CREATE TABLE `"+rows1[0].userid+"` (`name` varchar(50) DEFAULT NULL, `price` int(6) DEFAULT NULL,`quantity` int(11) DEFAULT NULL,`total` int(11) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;", function (error,rows) {
                     if (error) throw error;
                   
-                    return res.render('main1', {message: 'success' ,disable:" "});            
+                    return res.render('main1', {message: 'success' ,disable:" ", error:""});            
                     })
                 });
           }   
           else
           {     
-              return res.render('main1', {message: 'welcome' });
+              return res.render('main1', {message: 'welcome' , error:"incorrect register"});
           }
 
       })
@@ -90,8 +90,6 @@ router.post('/add1', function (req, res) {
 
      con.query("select * from userb where email='"+username+"' and password ='"+pwd+"'", function (error,rows) {
       if (error) throw error;
-      req.flash("success", "successfuly Signed up");
-      req.flash("incorrect", "incorrect");
        console.log(username); 
       if(rows.length)
       {
@@ -103,7 +101,7 @@ router.post('/add1', function (req, res) {
 
               console.log(req.cookies.value);
       
-     return res.render('main1', {message: "User" });
+     return res.render('main1', {message: "User" , error: "" });
    });
            
     }
@@ -113,7 +111,7 @@ router.post('/add1', function (req, res) {
 
         
        
- return res.render('main1', {message: 'welcome' });
+ return res.render('main1', {message: 'welcome' ,error: "incorrect email or password"});
     }
   });
     });
@@ -137,7 +135,7 @@ router.post('/act', function (req, res) {
             console.log(name); 
             if(!rows2.length)
             {
-                return res.render('main1', {message: "User" });
+                return res.render('main1', {message: "User", error: "cannot find book "+ name });
             }
             else
             {
@@ -234,7 +232,7 @@ router.post('/add3', function (req, res) {
 router.post('/logout',function(req,res){
 
     res.clearCookie('value'); 
-    return res.render('main1',{message:'welcome',disable:"disabled "});
+    return res.render('main1',{message:'welcome',disable:"disabled",error:"logout"});
 
 });
 
@@ -257,7 +255,7 @@ router.post('/delete', function (req, res, next) {
        con.query("drop table `"+req.cookies.value+"`",function(err){
                     
             res.clearCookie('value'); 
-            return res.render('main1',{message:'welcome'});
+            return res.render('main1',{message:'welcome',error:"account deleted"});
 
         });
       });
@@ -299,7 +297,7 @@ router.post('/profile1',function(req,res,next){
            con.query("select *  from userb where userid ="+req.cookies.value+"", function (error,rows3) {
       if (error) throw error;        
             
-     return res.render('main1', {message: 'User'});
+     return res.render('main1', {message: 'User',error:""});
       });
 
 
@@ -333,8 +331,8 @@ router.post('/cart',function(req,res,next){
 router.post('/home',function(req,res){
 
   if(typeof(req.cookies.value) != "undefined")
-  return res.render('main1',{message: "welcome",disable:" "});
-  else{  return res.render('main1',{message:'logout',disable:"disabled "});
+  return res.render('main1',{message: "welcome",disable:" ", error: ""});
+  else{  return res.render('main1',{message:'logout',disable:"disabled ", error: ""});
 }
 
 
@@ -426,11 +424,11 @@ router.post('/admin',function(req,res,next){
        console.log(username); 
       if(rows.length)
       {
-     return res.render('main1', {message: 'success',disable:"visible" });      
+     return res.render('main1', {message: 'success',disable:"visible" , error:""});      
     }
           else
     {    
-          return res.render('main1', {message: 'welcome',disable:"hidden" });
+          return res.render('main1', {message: 'welcome',disable:"hidden" ,error:"incorrect login" });
     }
   });
   });
@@ -449,7 +447,7 @@ router.post('/removebook', function (req, res, next) {
   
      con.query("delete from book where name='"+req.body.name+"'", function (err, result) {   
             
-     return res.render('main1', {message: "success",disable: " " });
+     return res.render('main1', {message: "success",disable: " " , error: "book removed: "+req.body.name});
       });
       });
         });

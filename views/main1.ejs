@@ -69,7 +69,7 @@
 
 </head>
 <body class="example">
-	<header>
+	<header style="width:100vw;">
 		<div class="container-fluid p-0">
 			<nav class="navbar navbar-dark bg-dark navbar-expand-sm ">
 			  <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -79,36 +79,40 @@
 			  </a>
 			  <form method="POST" class="form-inline" style="margin:0;width:100vw;">
 			      <% if(message=='welcome'){ %>
-			      <ul class="navbar-nav mr-auto mt-2 mt-lg-0v" style="margin:0;" >
+			      <ul class="navbar-nav mt-2 mt-lg-0v" style="margin-right: 35vw;">
 			      <li class="nav-item" >
-			        <button  formaction="\add2" class ="btn btn-link white" >books</button>
+			        <button  formaction="\add2" class ="btn btn-link white" >Books</button>
 			      </li>
 			      	 <li class="nav-item">
 			        <a href="#" class="btn white btn-link"><div id="contact"><span class="glyphicon glyphicon-log-in"></span> Userlogin </font></div></a> 
 			      </li>
 			      <li class="nav-item">
 			        <a href="#" class="btn white btn-link"><div id="contact3"><span class="glyphicon glyphicon-log-in"></span>Register</font></div></a>
-			      </li>
-			       <li class="nav-item">
+			      </li>     
+			  </ul>
+        						<input class="" type="text" name="name" placeholder="Search..." style="margin-left: 0;margin-right: 5px;width: 200px; ">
+          					<button type="submit" formaction="/search"><i class="fas fa-search" ></i></button> 
+          					 <ul class="nav navbar-nav navbar-right" style="padding-right: 0;padding-left: 0;">
+			 		<li class="nav-item" style="padding-right:  0; ">
 			        <a href="#" class="btn white btn-link"><div id="contact2"><span class="glyphicon glyphicon-log-in"></span>Admin</font></div></a>
 			      </li>
-			  </ul>
-			 <!-- <ul class="nav navbar-nav navbar-right">
-			      <li class="nav-item">
-			        <button  formaction="\cart" class ="btn btn-link white" style='visibility: <%= disable %>;'>cart</button>             
+			      </ul>
+			  
+			    <!--  <li class="nav-item">
+			        <button  formaction="\cart" class ="btn btn-link white" >cart</button>             
 			      </li>
 			       <li class="nav-item">
-			        <button  formaction="\profile" class ="btn btn-link white" style="visibility: <%= disable %>;">profile</button>
+			        <button  formaction="\profile" class ="btn btn-link white" >profile</button>
 			      </li>
 			      	 <li class="nav-item">
-			        <button  formaction="\logout" class ="btn btn-link white" style="visibility: <%= disable %>;">logout</button>  
+			        <button  formaction="\logout" class ="btn btn-link white">logout</button>  
 			      </li>
 			      </ul> -->
 			      <%}%>
 			      <% if(message=='success'){ %>
 			      <ul class="navbar-nav mr-auto mt-2 mt-lg-0v" style="margin:0;" >
 			      <li class="nav-item" >
-			        <button  formaction="\add3" class ="btn btn-link white" >books</button>
+			        <button  formaction="\add3" class ="btn btn-link white" >Books</button>
 			      </li>
 			      	 <li class="nav-item">
 			        <a href="#" class="btn white btn-link"><div id="contact4"><span class="glyphicon glyphicon-log-in"></span>Add Books</font></div></a>
@@ -121,9 +125,9 @@
 			      </ul>
 			      <%}%>
 			       <% if(message=='User'){ %>
-			      <ul class="navbar-nav mr-auto mt-2 mt-lg-0v" style="margin:0;" >
+			      <ul class="navbar-nav  mt-2 mt-lg-0v" style="margin-right: 35vw;" >
 			      <li class="nav-item" >
-			        <button  formaction="\add2" class ="btn btn-link white" >books</button> 
+			        <button  formaction="\add2" class ="btn btn-link white" >Books</button> 
 			      </li>
 			      	<li class="nav-item">
 			        <button  formaction="\cart" class ="btn btn-link white">cart</button>
@@ -132,9 +136,11 @@
 			        <button  formaction="\profile" class ="btn btn-link white" >profile</button>
 			      </li>
 			  </ul>
-			 <ul class="nav navbar-nav navbar-right">
-			      	 <li class="nav-item">
-			        <button  formaction="\logout" class ="btn btn-link white">logout</button>  
+			<input class="" type="text" name="name" placeholder="Search..." style="margin-left: 0;margin-right: 5px;width: 200px; ">
+          					<button type="submit" formaction="/search"><i class="fas fa-search" ></i></button> 
+          					 <ul class="nav navbar-nav navbar-right" style="padding-right: 0;padding-left: 0;">
+			 		<li class="nav-item" style="padding-right:  0; ">			       
+			 		 <button  formaction="\logout" class ="btn btn-link white">logout</button>  
 			      </li>
 			      </ul>
 			      <%}%> 
@@ -154,11 +160,11 @@
   </div>
   <div id="contactForm3">
         <form class="register-form" method="POST" action="/add" id="add">
-				<input type="text" placeholder="username" name="username"/>
-				<input type="password" placeholder="password" name="pwd"/>
-				<input type="email" placeholder="email" name="email"/>
-				<input type="text" placeholder="address" name="add"/>
-				<input type="number" placeholder="number" name="mobno"/>
+				<input type="text" placeholder="username" name="username" required />
+				<input type="password" placeholder="password" name="pwd" required />
+				<input type="email" placeholder="email" name="email" required />
+				<input type="text" placeholder="address" name="add" required />
+				<input type="number" placeholder="number" name="mobno" required />
 				<button type='submit'><b>Create</b></button> 
 				<p class="message">Already Registered?please, userlogin</p>
 			</form>
@@ -277,6 +283,8 @@
 	</script>
 <script type="text/javascript">
 
-  		alert('<%= message %>');
+		<% if(error!="") {%>
+  		alert('<%= error %>');
+  		<% } %>
 </script>
 </html>

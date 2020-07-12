@@ -41,7 +41,7 @@ app.get('/', function (req, res) {
 
         });
     res.clearCookie('value'); 
-    res.render('main1', {message: 'welcome',disable : 'hidden'});
+    res.render('main1', {message: 'welcome',disable : 'hidden', error : ""});
 
     });
 
